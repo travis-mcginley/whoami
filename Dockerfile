@@ -1,6 +1,6 @@
 FROM golang:1-alpine AS builder
 
-RUN apk --no-cache --no-progress add git ca-certificates tzdata make \
+RUN apk --no-cache --no-progress add git ca-certificates tzdata make wget \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
