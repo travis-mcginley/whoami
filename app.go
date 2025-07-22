@@ -60,7 +60,7 @@ func init() {
 	flag.StringVar(&port, "port", getEnv("WHOAMI_PORT_NUMBER", "80"), "give me a port number")
 	flag.StringVar(&name, "name", os.Getenv("WHOAMI_NAME"), "give me a name")
 	flag.BoolVar(&healthCheck, "health-check", false, "Check health of service")
-	flag.DurationVar(&healthCheckTimeout, "health-check-timeout", 5*time.Second, "Timeout for health check")
+	flag.DurationVar(&healthCheckTimeout, "health-check-timeout", 5, "Timeout for health check in seconds")
 }
 
 // Data whoami information.
@@ -334,7 +334,7 @@ func healthHandler(w http.ResponseWriter, req *http.Request) {
 
 func performHealthCheck() int {
 	client := &http.Client{
-		Timeout: healthCheckTimeout,
+		Timeout: healthCheckTimeout * time.Second,
 	}
 
 	healthEndpoint := fmt.Sprintf("http://127.0.0.1:%s/health", port)

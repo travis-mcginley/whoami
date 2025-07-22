@@ -47,15 +47,16 @@ Heath check.
 
 ### Flags
 
-| Flag          | Env var              | Description                             |
-|---------------|----------------------|-----------------------------------------|
-| `cert`        |                      | Give me a certificate.                  |
-| `key`         |                      | Give me a key.                          |
-| `cacert`      |                      | Give me a CA chain, enforces mutual TLS |
-| `port`        | `WHOAMI_PORT_NUMBER` | Give me a port number. (default: `80`)  |
-| `name`        | `WHOAMI_NAME`        | Give me a name.                         |
-| `verbose`     |                      | Enable verbose logging.                 |
-| `healthcheck` |                      | Check health of service.                |
+| Flag                    | Env var              | Description                                          |
+|-------------------------|----------------------|------------------------------------------------------|
+| `cert`                  |                      | Give me a certificate.                               |
+| `key`                   |                      | Give me a key.                                       |
+| `cacert`                |                      | Give me a CA chain, enforces mutual TLS              |
+| `port`                  | `WHOAMI_PORT_NUMBER` | Give me a port number. (default: `80`)               |
+| `name`                  | `WHOAMI_NAME`        | Give me a name.                                      |
+| `verbose`               |                      | Enable verbose logging.                              |
+| `health-check`          |                      | Check health of service.                             |
+| `health-check-timeout`  |                      | Timeout for health check in seconds. (default: `5`)  |
 
 ## Examples
 
@@ -144,6 +145,13 @@ version: '3.9'
 services:
   whoami:
     image: traefik/whoami
+    healthcheck:
+      # Starts a health check defined by the specified parameters
+      test: ["CMD", "/whoami", "--health-check"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
     command:
        # It tells whoami to start listening on 2001 instead of 80
        - --port=2001
