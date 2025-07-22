@@ -42,14 +42,14 @@ var upgrader = websocket.Upgrader{
 }
 
 var (
-	cert								string
-	key									string
-	ca									string
-	port								string
-	name								string
-	verbose							bool
-	healthCheck					bool
-	healthCheckTimeout	time.Duration
+	cert               string
+	key                string
+	ca                 string
+	port               string
+	name               string
+	verbose            bool
+	healthCheck        bool
+	healthCheckTimeout time.Duration
 )
 
 func init() {
@@ -100,6 +100,7 @@ func main() {
 
 	if cert == "" || key == "" {
 		log.Printf("Starting up on port %s", port)
+
 		log.Fatal(http.ListenAndServe(":"+port, h2c.NewHandler(h, &http2.Server{})))
 	}
 
