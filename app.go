@@ -337,8 +337,8 @@ func performHealthCheck() int {
 		Timeout: healthCheckTimeout,
 	}
 
-	const url = fmt.Sprintf("http://127.0.0.1:%s/health", port)
-	resp, err := client.Get(url)
+	healthEndpoint := fmt.Sprintf("http://127.0.0.1:%s/health", port)
+	resp, err := client.Get(healthEndpoint)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error while attempting to perform health check: %v\n", err)
 		return 1
