@@ -146,7 +146,7 @@ services:
   whoami:
     image: traefik/whoami
     healthcheck:
-      # Starts a health check defined by the specified parameters
+      # Enables a health check defined by the specified parameters
       test: ["CMD", "/whoami", "--health-check"]
       interval: 30s
       timeout: 10s
